@@ -5,22 +5,339 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ribbon Programming Language</title>
     <style>
-        html, body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* background: #fad0f5; */
+        /* color: #191919; */
+
+        * {
+            background: none;
             margin: 0;
             padding: 0;
-            background-color: #FFF;
-            overflow: hidden;
-            height: 100%;
+            border: none;
+            text-decoration: none;
+            list-style: none;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            color: inherit;
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: "Roboto";
+            src: url("fonts/roboto/Roboto.ttf") format("truetype");
+        }
+
+        @font-face {
+            font-family: "BodoniModa";
+            src: url("fonts/bodoni-moda/BodoniModa.ttf") format("truetype");
+        }
+
+        @font-face {
+            font-family: "CutiveMono";
+            src: url("fonts/cutive-mono/CutiveMono.ttf") format("truetype");
+        }
+
+        html {
+            background-color: #352633;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background-color: #fcfcf6;
+            border-radius: 1rem;
+            min-width: 640px;
+            max-width: 960px;
+            margin: 1rem auto;
+            padding: 1rem;
+        }
+
+        p {
+            margin-top: 1rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: "BodoniModa", serif;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 32px - 2rem);
+            min-height: 42em;
+        }
+
+        .logo {
+            display: block;
             width: 100%;
+        }
+
+        header summary {
+            height: 30vh;
+            margin-top: 10em;
+        }
+
+
+        header summary p {
+            text-align: center;
+            justify-self: center;
+        }
+
+        main {
+            margin-top: 3rem;
+        }
+
+        .row h2 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .row > h2 {
+            flex-grow: 1;
+            background: url("images/simple_diamond.svg");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .row > summary {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .row > p {
+            text-align: center;
+        }
+
+        .row > section {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .row > section > *:not(pre) {
+            display: block;
+            width: 30em;
+            text-align: center;
+            margin: 1em;
+        }
+
+        .row > section > p:not(:only-of-type) {
+            border-top: 1px solid #191919;
+            border-bottom: 1px solid #191919;
+            padding: 1rem;
+        }
+
+        .row {
+            margin-top: 4rem;
+        }
+
+        .column-header + .row {
+            margin-top: 0;
+        }
+
+        .row > section > h2 {
+            width: auto;
+            padding: .1em;
+            border-bottom: 1px solid #191919;
+        }
+
+        .row > section > *:only-of-type:not(pre) {
+            background: none;
+            width: 40%;
+            margin-left: -.5em;
+        }
+
+        .fold-marker {
+            display: block;
+            margin: 0 auto;
+            height: 64px;
+            width: 64px;
+        }
+
+        pre {
+            display: block;
+            text-align: left;
+            font-size: 12pt;
+            padding: 1rem;
+            color: #fffbff;
+            background-color: #2e2c2e;
+            border-radius: 1rem;
+            overflow: auto;
+        }
+
+        pre > code {
+            font-family: monospace;
+        }
+
+        .tok-keyword {
+            font-weight: bold;
+            color: #e33acf;
+        }
+
+        .tok-effect {
+            color: rgb(75, 255, 69);
+        }
+
+        .tok-type {
+            color: rgb(255, 224, 69);
+        }
+
+        .tok-operator {
+            color: #a3d5fd;
+        }
+
+        .tok-function {
+            color: #ecafe4;
+        }
+
+        .tok-prompt {
+            font-style: italic;
+        }
+
+        .tok-literal {
+            color: #9ee4bf;
+        }
+
+        header .row h1, header .row h2 {
+            display: none;
+        }
+
+        header .row section summary {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
-    <a href="https://github.com/ribbon-lang">
-        <img style="display: block; max-height: 50vh; max-width: 100vw" src="images/logo_full.svg" alt="Ribbon Language Logo"/>
-    </a>
+    <header>
+        <img class="logo" src="images/ribbon_logo-rich_header.svg" alt="The Ribbon Logo"/>
+        <div class="row pitch">
+            <h1>Ribbon</h1>
+            <h2>An embeddable programming language offering a new approach to realtime, data-oriented systems</h2>
+            <section>
+                <summary>
+                    <p>
+                        Ribbon utilizes the latest research in computer science to solve its oldest problem:<br>
+                        Software platforms are always growing.
+                    </p>
+
+                    <p style="max-width: 360px;">
+                        With Ribbon, you can easily ensure performance, safety and total control;
+                        enabling real-time, deeply extensible and sustainable software.
+                    </p>
+                </summary>
+<pre><code><span class="tok-keyword">import</span> std<span class="tok-operator">.</span><span class="tok-effect">Console</span>
+
+<span class="tok-keyword">using</span> <span class="tok-effect">Exception</span>
+
+<span class="tok-effect">Exception</span> <span class="tok-operator">=</span> <span class="tok-keyword">effect</span> a <span class="tok-operator">=></span>
+    <span class="tok-function tok-prompt">throw</span> <span class="tok-operator">:</span> a <span class="tok-operator">-></span> <span class="tok-keyword tok-type">!</span>
+
+<span class="tok-function">checked-div</span> <span class="tok-operator">=</span> <span class="tok-keyword">fun</span> a<span class="tok-operator">,</span> b <span class="tok-operator">=></span>
+    <span class="tok-keyword">if</span> b <span class="tok-operator">==</span> <span class="tok-literal">0</span>
+        <span class="tok-keyword">then</span> <span class="tok-function">throw</span> <span class="tok-literal">"Division by zero"</span>
+        <span class="tok-keyword">else</span> a <span class="tok-operator">/</span> b
+
+<span class="tok-function">handled-div</span> <span class="tok-operator">=</span> <span class="tok-keyword">fun</span> a<span class="tok-operator">,</span> b <span class="tok-operator">=></span>
+    <span class="tok-keyword">with</span> <span class="tok-effect">Exception</span> <span class="tok-keyword tok-operator">_</span>
+        <span class="tok-function tok-prompt">throw</span> msg <span class="tok-operator">=></span>
+            <span class="tok-effect">Console</span><span class="tok-operator">.</span><span class="tok-prompt tok-function">log</span> msg
+            <span class="tok-keyword">cancel</span> <span class="tok-literal">0</span>
+    <span class="tok-function">checked-div</span> a<span class="tok-operator">,</span> b
+</code></pre>
+            </section>
+        </div>
+    </header>
+
+    <img class="fold-marker" src="images/heart-with-ribbon.svg" alt="A heart with a ribbon around it, indicating there are items below the fold" />
+
+    <main>
+        <div class="row intro">
+            <summary>
+                <p>
+                    From the beginning of extensible software there has always been a conflict, between
+                    the interests of the developers of software platforms (whom we will call <em>hosts</em>),
+                    and the interests of the developers of extensions to those platforms (whom we will call <em>guests</em>).
+                    This is simply the nature of the beast, it seemed. Hosts want to make their platforms
+                    secure, guests want flexibility. Hosts want to make their platforms fast, guests want
+                    to write extensions quickly without worrying about low-level details.
+                    Ribbon, however, presents a new approach to this problem. We perform deep analysis of the guest code,
+                    using the latest research in type theory and emerging patterns from the industry, allowing us to
+                    ensure it is both fast and does what it says it does. This allows us to unite hosts and guests, in their shared
+                    interest of fast, safe and extensible software.
+                </p>
+            </summary>
+        </div>
+        <div class="row column-header">
+            <p>
+                With Ribbon, there is no compromise.
+                Everyone wins, whether they're a ...
+            </p>
+            <section>
+                <h2>Guest</h2>
+                <p>... or ...</p>
+                <h2>Host</h2>
+            </section>
+        </div>
+        <div class="row fast">
+            <h2>Fast</h2>
+            <section>
+                <p class="guest feature">
+                    Donec erat orci, dapibus non laoreet in, pharetra eget risus. Aliquam blandit neque odio, ut vulputate est consequat ut. Etiam quis facilisis lacus. Duis id congue quam. Fusce et varius felis, et vestibulum lectus. Mauris eu nulla ultricies, blandit lectus quis, pretium dolor. Aliquam felis ex, varius elementum euismod non, tincidunt ut justo. Donec aliquam mi sit amet volutpat posuere. Fusce quis dolor et nunc ullamcorper semper a ut nisi. Vivamus a gravida orci. Morbi commodo, mauris ac vulputate luctus, risus leo ullamcorper tellus, et tristique elit erat ut tortor. Ut est enim, eleifend vitae enim vitae, congue pulvinar.
+                </p>
+
+                <p class="host feature">
+                    Quisque eleifend lacus eu sem porta, sit amet bibendum massa eleifend. Phasellus vel sodales mi. Curabitur ac convallis ipsum, nec condimentum justo. In hac habitasse platea dictumst. Cras vel luctus lacus, in blandit turpis. Praesent lacinia fringilla urna quis blandit. Vivamus egestas posuere suscipit. Vivamus nibh sapien, dapibus ut lacinia sit amet, mollis eget odio. Fusce bibendum purus libero, vitae vehicula tortor aliquet vitae. Nam et velit tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris vestibulum imperdiet nibh, sed sollicitudin diam bibendum vel. Cras tincidunt posuere sapien, ut dictum sem. Pellentesque ut turpis.
+                </p>
+            </section>
+        </div>
+
+        <div class="row embeddable">
+            <h2>Embeddable</h2>
+            <section>
+                <p class="guest feature">
+                    Auctor tincidunt laoreet. Curabitur tristique posuere felis et accumsan. Nam lacinia accumsan orci et fermentum. Suspendisse vehicula felis a semper posuere. Vestibulum metus leo, vehicula a vestibulum in, blandit id ligula. Nullam a erat ipsum. Maecenas massa nunc, sagittis a aliquam ac, hendrerit sed massa. Suspendisse eu interdum justo, at semper ex. Ut eget felis tristique, tincidunt ipsum ac, scelerisque est. Duis quis turpis quis purus.
+                </p>
+
+                <p class="host feature">
+                    Nullam iaculis turpis eu libero congue, eu pulvinar massa laoreet. Curabitur mollis varius magna, et imperdiet nulla consequat sed. In viverra rhoncus risus ut dictum. Fusce placerat mollis posuere. Vestibulum efficitur dui eu lacinia mattis. Donec blandit porta ultricies. Morbi sed mollis urna. Integer nec velit sit amet est pharetra efficitur vitae ac sapien. Aenean maximus dui quis nunc porta, non finibus lacus rhoncus. Pellentesque eu libero at lacus eleifend consequat.
+                </p>
+            </section>
+        </div>
+
+        <div class="row safe">
+            <h2>Safe</h2>
+            <section>
+                <p class="guest feature">
+                    Phasellus vel sodales mi. Curabitur ac convallis ipsum, nec condimentum justo. Nullam iaculis turpis eu libero congue, eu pulvinar massa laoreet. Donec ut nibh a justo dignissim placerat. Sed rhoncus nibh risus, eget vestibulum sem ultrices id. Quisque eleifend lacus eu sem porta, sit amet bibendum massa eleifend. Phasellus vel sodales mi. Curabitur ac convallis ipsum, nec condimentum justo. In hac habitasse platea dictumst. Cras vel luctus lacus, in blandit turpis. Praesent lacinia fringilla urna quis blandit.
+                </p>
+
+                <p class="host feature">
+                    Quisque eleifend lacus eu sem porta, sit amet bibendum massa eleifend. In hac habitasse platea dictumst. Cras vel luctus lacus, in blandit turpis. Praesent lacinia fringilla urna quis blandit. Vivamus egestas posuere suscipit. Vivamus nibh sapien, dapibus ut lacinia sit amet, mollis eget odio. Fusce bibendum purus libero, vitae vehicula tortor aliquet vitae. Nam et velit tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris vestibulum imperdiet nibh, sed sollicitudin diam bibendum vel. Cras tincidunt posuere sapien, ut dictum sem. Pellentesque ut turpis.
+                </p>
+            </section>
+        </div>
+
+        <div class="row extensible">
+            <h2>Extensible</h2>
+            <section>
+                <p class="guest feature">
+                    Auctor tincidunt laoreet. Curabitur tristique posuere felis et accumsan. Nam lacinia accumsan orci et fermentum. Suspendisse vehicula felis a semper posuere. Vestibulum metus leo, vehicula a vestibulum in, blandit id ligula. Nullam a erat ipsum. Maecenas massa nunc, sagittis a aliquam ac, hendrerit sed massa. Suspendisse eu interdum justo, at semper ex. Ut eget felis tristique, tincidunt ipsum ac, scelerisque est. Duis quis turpis quis purus.
+                </p>
+
+                <p class="host feature">
+                    Nullam iaculis turpis eu libero congue, eu pulvinar massa laoreet. Curabitur mollis varius magna, et imperdiet nulla consequat sed. In viverra rhoncus risus ut dictum. Fusce placerat mollis posuere. Vestibulum efficitur dui eu lacinia mattis. Donec blandit porta ultricies. Morbi sed mollis urna. Integer nec velit sit amet est pharetra efficitur vitae ac sapien. Aenean maximus dui quis nunc porta, non finibus lacus rhoncus. Pellentesque eu libero at lacus eleifend consequat.
+                </p>
+            </section>
+        </div>
+    </main>
 </body>
 </html>
